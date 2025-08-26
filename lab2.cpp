@@ -43,14 +43,11 @@ int binary_search(int arr[],int n,int start,int end,int target){
 void bubble_sort(int arr[],int n){
     for(int i=0;i<n;i++){
         int min=arr[i];
-        bool flag =true;
         for(int j=i+1;j<n;j++){
             if(arr[i]>arr[j]){
                 swap(arr[i],arr[j]);
             }
-            flag=false;
         }
-        if(flag==true)break;
     }
 }
 //QUETION 2:
@@ -475,4 +472,5 @@ int matrix_multilpy(int matrix1[][3],int matrix2[][3],int ans[][3]){
         if(hash[i]==1)cout<<i+1<<" ";
     }
     return 0;
+
 }*/
