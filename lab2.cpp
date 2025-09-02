@@ -43,11 +43,14 @@ int binary_search(int arr[],int n,int start,int end,int target){
 void bubble_sort(int arr[],int n){
     for(int i=0;i<n;i++){
         int min=arr[i];
+        bool flag =true;
         for(int j=i+1;j<n;j++){
             if(arr[i]>arr[j]){
                 swap(arr[i],arr[j]);
             }
+            flag=false;
         }
+        if(flag==true)break;
     }
 }
 //QUETION 2:
@@ -144,12 +147,12 @@ int main(){
 }*/
 //part 4
 /*void sort_string(char arr[],int n){
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = i+1; j < n ; j++) {
-            if (arr[i] > arr[j]){
-                char temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+    for (int i=0;i<n-1;i++){
+        for(int j=i+1;j<n;j++){
+            if(arr[i]>arr[j]){
+                char temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
             }
         }
     }
@@ -163,9 +166,9 @@ int main(){
 }*/
 //part 5
 /*void convert_string(char arr[],int n){
-    for (int i = 0; i < n; i++) {
-        if (arr[i] >= 'A' && arr[i] <= 'Z') { 
-            arr[i] = arr[i] + 32; 
+    for (int i=0;i<n;i++){
+        if(arr[i]>='A'&& arr[i]<='Z'){ 
+            arr[i]=arr[i]+32; 
         }
     }
 }
@@ -230,7 +233,7 @@ int main(){
 }*/
 //part 4
 /*int main(){
-    int arr[4][4] = {{1, 2, 3, 4},{0, 5, 6, 7},{0, 0, 8, 9},{0, 0, 0, 10}};
+    int arr[4][4]={{1, 2, 3, 4},{0, 5, 6, 7},{0, 0, 8, 9},{0, 0, 0, 10}};
     int row=4,col=4;
     int n=row*(row+1)/2;
     int store[n]={0};
@@ -248,7 +251,7 @@ int main(){
 }*/
 //part 5
 /*int main(){
-    int arr[4][4] = {{1, 2, 3, 4},{2, 5, 6, 7},{3, 6, 8, 9},{4, 7, 9, 10}};
+    int arr[4][4]={{1, 2, 3, 4},{2, 5, 6, 7},{3, 6, 8, 9},{4, 7, 9, 10}};
     int row=4,col=4;
     int n=row*col;
     int store[n]={0};
@@ -301,15 +304,20 @@ void transpose(int matrix[][3],int row){
     for(int i=1;i<=row;i++){
         swap(matrix[i][0],matrix[i][1]);
     }
+    for(int i=1;i<=row-1;i++){
+        for(int j=i+1;j<=row;j++) {
+            if(matrix[i][0]>matrix[j][0] || 
+               (matrix[i][0]==matrix[j][0] && matrix[i][1]>matrix[j][1])){
+                swap(matrix[i][0], matrix[j][0]);
+                swap(matrix[i][1], matrix[j][1]);
+                swap(matrix[i][2], matrix[j][2]);
+            }
+        }
+    }
 }
 /*int main(){
     int row=5,col=5;
-    int arr[5][5] = {
-    {0, 0, 3, 0, 0},
-    {0, 0, 0, 0, 5},
-    {7, 0, 0, 0, 0},
-    {0, 9, 0, 0, 0},
-    {0, 0, 0, 6, 0}};
+    int arr[5][5] = {{0, 0, 3, 0, 0},{0, 0, 0, 0, 5},{7, 0, 0, 0, 0},{0, 9, 0, 0, 0},{0, 0, 0, 6, 0}};
     int no_value=0;
     no_value=count_elements(arr,row,col,no_value);
     int matrix[no_value+1][3];
@@ -324,24 +332,24 @@ void transpose(int matrix[][3],int row){
     int n2 = matrix2[0][2]; 
     int i=1, j=1, k=1;
     while(i<=n1 && j<=n2) {
-        if(matrix1[i][0] < matrix2[j][0] || 
-          (matrix1[i][0] == matrix2[j][0] && matrix1[i][1] < matrix2[j][1])) {
-            ans[k][0] = matrix1[i][0];
-            ans[k][1] = matrix1[i][1];
-            ans[k][2] = matrix1[i][2];
+        if(matrix1[i][0]<matrix2[j][0] || 
+          (matrix1[i][0]==matrix2[j][0] && matrix1[i][1]<matrix2[j][1])){
+            ans[k][0]=matrix1[i][0];
+            ans[k][1]=matrix1[i][1];
+            ans[k][2]=matrix1[i][2];
             i++; k++;
         }
-        else if(matrix2[j][0] < matrix1[i][0] ||
-               (matrix2[j][0] == matrix1[i][0] && matrix2[j][1] < matrix1[i][1])) {
-            ans[k][0] = matrix2[j][0];
-            ans[k][1] = matrix2[j][1];
-            ans[k][2] = matrix2[j][2];
+        else if(matrix2[j][0]<matrix1[i][0] ||
+               (matrix2[j][0]==matrix1[i][0] && matrix2[j][1]<matrix1[i][1])) {
+            ans[k][0]=matrix2[j][0];
+            ans[k][1]=matrix2[j][1];
+            ans[k][2]=matrix2[j][2];
             j++; k++;
         }
         else { 
-            ans[k][0] = matrix1[i][0];
-            ans[k][1] = matrix1[i][1];
-            ans[k][2] = matrix1[i][2] + matrix2[j][2];
+            ans[k][0]=matrix1[i][0];
+            ans[k][1]=matrix1[i][1];
+            ans[k][2]=matrix1[i][2]+matrix2[j][2];
             i++; j++; k++;
         }
     }
@@ -362,23 +370,13 @@ void transpose(int matrix[][3],int row){
 }
 int main(){
     int row1=5,col1=5;
-    int arr[5][5] = {
-    {0, 0, 0, 4, 0},
-    {0, 0, 0, 0, 0},
-    {5, 0, 0, 0, 7},
-    {0, 8, 0, 0, 0},
-    {0, 0, 9, 0, 0}};
+    int arr[5][5] = {{0, 0, 0, 4, 0},{0, 0, 0, 0, 0},{5, 0, 0, 0, 7},{0, 8, 0, 0, 0},{0, 0, 9, 0, 0}};
     int no_value1=0;
     no_value1=count_elements(arr,row1,col1,no_value1);
     int matrix1[no_value1+1][3];
     sparse_create(arr,matrix1,row1,col1);
     int row2=5,col2=5;
-    int brr[5][5] = {
-    {0, 0, 3, 0, 0},
-    {0, 0, 0, 0, 5},
-    {7, 0, 0, 0, 0},
-    {0, 9, 0, 0, 0},
-    {0, 0, 0, 6, 0}};
+    int brr[5][5] = {{0, 0, 3, 0, 0},{0, 0, 0, 0, 5},{7, 0, 0, 0, 0},{0, 9, 0, 0, 0},{0, 0, 0, 6, 0}};
     int no_value2=0;
     no_value2=count_elements(brr,row2,col2,no_value2);
     int matrix2[no_value2+1][3];
@@ -455,10 +453,10 @@ int matrix_multilpy(int matrix1[][3],int matrix2[][3],int ans[][3]){
     int count=0;
     for(int i=0;i<7;i++){
         for(int j=i+1;j<7;j++){
-            if(arr[j]<arr[i])count++;
+            if(arr[i]>arr[j])count++;
         }
     }
-    cout<<count;
+    cout<<"Number of inversion pair in an array."<<count;
     return 0;
 }*/
 //QUESTION 8
@@ -472,5 +470,116 @@ int matrix_multilpy(int matrix1[][3],int matrix2[][3],int ans[][3]){
         if(hash[i]==1)cout<<i+1<<" ";
     }
     return 0;
+}*/
 
+//-----ADDITIONAL QUESTIONS-----//
+//QUESTION1
+/*int main(){
+    int arr[10]={1,4,1,4,5};
+    int n=5;
+    int k=3;
+    for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            if(arr[i]-arr[j]==3 || arr[i]-arr[j]==-3){
+                cout<<arr[i]<<" "<<arr[j]<<endl;
+            }
+        }
+    }
+    return 0;
+}*/
+/*int main(){
+    int arr[]={8,16,12,16,4,0};
+    int n=6;
+    int k=4;
+    int m=17;
+    int hash[m]={0};
+    for(int i=0;i<n;i++){
+        hash[arr[i]]++;
+    }
+    for(int i=0;i<m;i++){
+        if(i+k<m && hash[i]>0 && hash[i+k]>0){
+            cout<<i<<" "<<i+k<<endl;
+        }
+    }
+    return 0;
+}*/
+//QUESTIION 2:
+
+//QUESTION 3:
+/*int main(){
+    char str1[]={'a','p','p','l','e'};
+    int n=5;
+    char str2[]={'p','l','e','a','p'};
+    int m=5;
+    int size=min(m,n);
+    int hash[150]={0};
+    for(int i=0;i<n;i++){
+        int ascii_value = (int)str1[i];
+        hash[ascii_value]++;
+    }
+    int hash2[150]={0};
+    for(int i=0;i<m;i++){
+        int ascii_value = (int)str2[i];
+        hash2[ascii_value]++;
+    }
+    int count=0;
+    for(int i=0;i<123;i++){
+        if(hash[i]==hash2[i]){
+            count++;
+        }
+    }
+    if (count==123){
+        cout<<"yes";
+    }
+    else{
+        cout<<"no";
+    }
+    return 0;
+}*/
+//QUESTION 4:
+/*int main(){
+    int arr[] = {0,1,2, 0, 1, 2};
+    int n=6;
+    int low=0,mid=0,high=n-1;
+    while(mid<=high){
+        if(arr[mid]==0){
+            swap(arr[mid],arr[low]);
+            mid++;
+            low++;
+        }
+        else if(arr[mid]==2){
+            swap(arr[mid],arr[high]);
+            high--;
+        }
+        else{
+            mid++;
+        }
+    }
+    display(arr,n);
+    return 0;
+}*/
+//QUESTION 5:
+/*int main(){
+    int arr[25]={1,0,2,3,0,4,5,0};
+    int cur_size=8;
+    int count_zero=0;
+    for(int i=0;i<cur_size;i++){
+        if(arr[i]==0)count_zero++;
+    }
+    int max_size=(count_zero)+cur_size;
+    int i=cur_size-1,j=max_size-1;
+    while (i >= 0) {
+        if (arr[i] != 0) {
+            if (j < cur_size) arr[j] = arr[i];
+            j--;
+        } else {
+            if (j < cur_size) arr[j] = 0;
+            j--;
+            if (j < cur_size) arr[j] = 0;
+            j--;
+        }
+        i--;
+    }
+    display(arr,cur_size);
+    return 0;
 }*/
