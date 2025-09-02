@@ -142,11 +142,11 @@ void matrix_display(int arr[][2],int row,int col){
 }*/
 //QUESTION 4(2)
 void matrix_multi(int ans[][2],int arr1[][2],int arr2[][2],int row1,int col1,int row2,int col2){
-    for (int i = 0; i < row1; i++) {
-        for (int j = 0; j < col2; j++) {
+    for (int i=0;i<row1;i++){
+        for(int j=0;j<col2;j++){
             ans[i][j]=0;
-            for (int k = 0; k < col1; k++) {
-                ans[i][j] += arr1[i][k] * arr2[k][j];
+            for(int k=0;k<col1;k++){
+                ans[i][j]=ans[i][j]+(arr1[i][k]*arr2[k][j]);
             }
         }
     }
@@ -181,8 +181,8 @@ void matrix_multi(int ans[][2],int arr1[][2],int arr2[][2],int row1,int col1,int
         ans.push_back(sum2);
         sum2=0;
     }
-    for (int i = 0; i < ans.size(); i++) {
-        cout << ans[i] << " ";
+    for(int i=0;i<ans.size();i++){
+        cout<<ans[i]<<" ";
     }
     return 0;
 }*/
